@@ -1,6 +1,21 @@
 import { useState } from "react";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
+import Styled from "styled-components";
+
+const StyledTitle = Styled.h1`
+font-size: 75px;
+font-weight: bold;
+color: #fff;
+margin-bottom: 20px;
+`;
+
+const Container = Styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+`;
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -28,22 +43,28 @@ const TodoList = () => {
     setTodos(updatedTodos);
   };
 
+  // function to remove all todo items from list
+  const removeAllItems = () => {
+    setTodos([]);
+  };
+
   return (
-    <div>
-      <h1>Pats Todos</h1>
+    <Container>
+      <StyledTitle>Pats Todos</StyledTitle>
       <ul>
         {todos.map((todo, index) => (
           <TodoItem
             key={index}
             index={index}
-            task={todo.item}
+            task={todo.task}
             removeTodoItem={removeTodoItem}
             editTodoItem={editTodoItem}
           />
         ))}
       </ul>
       <TodoForm addTodoItem={addTodoItem} />
-    </div>
+      {todos.length > 0 && <button onClick={removeAllItems}>Remove All Items</button>}
+    </Container>
   );
 };
 
