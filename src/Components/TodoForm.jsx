@@ -12,7 +12,8 @@ const StyledFormContainer = Styled.div`
 `;
 
 const StyledInput = Styled.input`
-  width: 70%;
+  height: 20px;
+  width: 200px;
   padding: 10px;
   margin-right: 10px;
   fotn-size: 16px;
@@ -21,6 +22,7 @@ const StyledInput = Styled.input`
 `;
 
 const StyledButton = Styled.button`
+  width: 75px;
   background-color: #d4af37;
   color: #333;
   padding: 10px;
