@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 import Styled from "styled-components";
@@ -17,20 +17,78 @@ align-items: center;
 justify-content: center;
 `;
 
+const StyledRemoveAllItemsButton = Styled.button`
+width: 200px;
+background-color: red;
+color: #fff;
+padding: 10px;
+margin-top: 20px;
+font-size: 16px;
+border: 1px solid #000000;
+border-radius: 5px 5px 5px 5px;
+cursor: pointer;
+`;
+
+const TODO_STORAGE_KEY = "todos";
+
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
 
+  // useEffect(() => {
+  //   fetch("http://localhost:3001/todos")
+  //     .then((res) => res.json())
+  //     .then((data) => setTodos(data));
+  // }, []);
+
+    // Load todos from localStorage on mount
+    useEffect(() => {
+      const storedTodos = localStorage.getItem(TODO_STORAGE_KEY);
+      if (storedTodos) {
+        setTodos(JSON.parse(storedTodos));
+      }
+    }, []);
+  
+    // Save todos to localStorage whenever they change
+    useEffect(() => {
+      localStorage.setItem(TODO_STORAGE_KEY, JSON.stringify(todos));
+    }, [todos]);
+
   // function to add new todo item to list
-  const addTodoItem = (task) => {
-    // create new todo item
-    setTodos([...todos, { task }]);
-  };
+// function to add new todo item to list and database
+const addTodoItem = (task) => {
+  const newTodo = { task, _id: Date.now() };
+  setTodos([...todos, newTodo]);
+  // make POST request to backend to add new todo item
+  // fetch('http://localhost:3001/todos', {
+  //   method: 'POST',
+  //   headers: {
+  //     'Content-Type': 'application/json',
+  //   },
+  //   body: JSON.stringify({ task }),
+  // })
+  //   .then((res) => res.json())
+  //   .then((newTodo) => {
+  //     // add new todo item to the state
+  //     setTodos([...todos, newTodo]);
+  //   })
+  //   .catch((error) => {
+  //     console.error('Error:', error);
+  //   });
+};
 
   // function to remove todo item from list
   const removeTodoItem = (index) => {
     const updatedTodos = todos.filter((_item, i) => i !== index);
     setTodos(updatedTodos);
-  };
+    // fetch(`http://localhost:3001/todos/${todos[index]._id}`, {
+    //   method: "DELETE",
+    // })
+    //   .then((res) => res.json())
+    //   .then(() => {
+    //     const updatedTodos = todos.filter((_item, i) => i !== index);
+    //     setTodos(updatedTodos);
+    //   });
+  };  
 
   // function to edit todo item in list
   const editTodoItem = (index, updatedTask) => {
@@ -51,19 +109,21 @@ const TodoList = () => {
   return (
     <Container>
       <StyledTitle>Pats Todos</StyledTitle>
+      <TodoForm addTodoItem={addTodoItem} removeAllItems={removeAllItems} />
       <ul>
         {todos.map((todo, index) => (
           <TodoItem
             key={index}
             index={index}
             task={todo.task}
+            todo={todos}
             removeTodoItem={removeTodoItem}
             editTodoItem={editTodoItem}
+            removeAllItems={removeAllItems}
           />
         ))}
       </ul>
-      <TodoForm addTodoItem={addTodoItem} />
-      {todos.length > 0 && <button onClick={removeAllItems}>Remove All Items</button>}
+      {todos.length > 0 && <StyledRemoveAllItemsButton onClick={removeAllItems}>Remove All Items</StyledRemoveAllItemsButton>}
     </Container>
   );
 };

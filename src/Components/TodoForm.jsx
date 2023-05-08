@@ -16,7 +16,7 @@ const StyledInput = Styled.input`
   width: 200px;
   padding: 10px;
   margin-right: 10px;
-  fotn-size: 16px;
+  font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px 5px 5px 5px;
 `;
@@ -40,7 +40,7 @@ const TodoForm = (props) => {
     e.preventDefault();
     // if input field is empty, remove all items from list
     if (inputValue.trim() === "") {
-      props.removeAllItems();
+      return;
     } else {
     // add new todo item using props function
     props.addTodoItem(inputValue);
@@ -59,7 +59,7 @@ const TodoForm = (props) => {
       <StyledFormContainer>
       <StyledInput
         type="text"
-        placeholder="Enter new todo item"
+        placeholder="Enter new task"
         value={inputValue}
         onChange={handleChange}
       />
@@ -71,7 +71,7 @@ const TodoForm = (props) => {
 
 TodoForm.propTypes = {
   addTodoItem: PropTypes.func.isRequired,
-  removeAllItems: PropTypes.func.isRequired,
+  removeAllItems: PropTypes.func,
 };
 
 export default TodoForm;

@@ -22,6 +22,26 @@ const StyledEditButton = Styled.button`
   cursor: pointer;
 `;
 
+const StyledSaveButton = Styled.button`
+  background-color: green;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  `;
+
+const StyledCancelButton = Styled.button`
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  cursor: pointer;
+  `;
+
 const StyledListItem = Styled.li`
   font-size: 18px;
   color: #fff;
@@ -56,8 +76,8 @@ const TodoItem = ({ index, task, removeTodoItem, editTodoItem }) => {
       {isEditing ? (
         <>
           <input type="text" value={updatedTask} onChange={handleChange} />
-          <button onClick={handleSave}>Save</button>
-          <button onClick={handleCancel}>Cancel</button>
+          <StyledSaveButton onClick={handleSave}>Save</StyledSaveButton>
+          <StyledCancelButton onClick={handleCancel}>Cancel</StyledCancelButton>
         </>
       ) : (
         <>
