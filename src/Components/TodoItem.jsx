@@ -3,18 +3,36 @@ import PropTypes from "prop-types";
 import Styled from "styled-components";
 
 const StyledRemoveButton = Styled.button`
-  background-color: red;
-  color: white;
+  background-color: #d4af37;
+  color: #333;
   border: none;
   border-radius: 5px;
   padding: 5px;
   margin: 5px;
+  margin-top: 15px;
   cursor: pointer;
 `;
 
 const StyledEditButton = Styled.button`
-  background-color: blue;
   color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 5px;
+  margin: 5px;
+  margin-top: 15px;
+  cursor: pointer;
+`;
+
+const StyledCheckbox = Styled.input`
+  margin: 10px;
+  margin-top: 15px;
+  cursor: pointer;
+  transform: scale(1.85);
+`;
+
+const StyledSaveButton = Styled.button`
+  background-color: #d4af37;
+  color: #333;
   border: none;
   border-radius: 5px;
   padding: 5px;
@@ -22,25 +40,15 @@ const StyledEditButton = Styled.button`
   cursor: pointer;
 `;
 
-const StyledSaveButton = Styled.button`
-  background-color: green;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 5px;
-  margin: 5px;
-  cursor: pointer;
-  `;
-
 const StyledCancelButton = Styled.button`
   background-color: red;
-  color: white;
+  color: #333;
   border: none;
   border-radius: 5px;
   padding: 5px;
   margin: 5px;
   cursor: pointer;
-  `;
+`;
 
 const StyledListItem = Styled.li`
   font-size: 18px;
@@ -84,6 +92,7 @@ const TodoItem = ({ index, task, removeTodoItem, editTodoItem }) => {
       <StyledListItem>{task}</StyledListItem>
       <StyledRemoveButton onClick={() => removeTodoItem(index)}>Remove</StyledRemoveButton>
       <StyledEditButton onClick={handleEdit}>Edit</StyledEditButton>
+      <StyledCheckbox type="checkbox" value="" id={`checkbox-${index}`} />
         </>
       )}
     </div>

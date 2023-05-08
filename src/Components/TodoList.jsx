@@ -20,7 +20,7 @@ justify-content: center;
 const StyledRemoveAllItemsButton = Styled.button`
 width: 200px;
 background-color: red;
-color: #fff;
+color: #333;
 padding: 10px;
 margin-top: 20px;
 font-size: 16px;
