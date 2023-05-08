@@ -101,6 +101,17 @@ const addTodoItem = (task) => {
     setTodos(updatedTodos);
   };
 
+  // function to toggle todo item in list
+  const toggleTodoItem = (index) => {
+    const updatedTodos = todos.map((todo, i) => {
+      if (i === index) {
+        return { ...todo, completed: !todo.completed };
+      }
+      return todo;
+    });
+    setTodos(updatedTodos);
+  };
+
   // function to remove all todo items from list
   const removeAllItems = () => {
     setTodos([]);
@@ -116,9 +127,11 @@ const addTodoItem = (task) => {
             key={index}
             index={index}
             task={todo.task}
+            completed={todo.completed}
             todo={todos}
             removeTodoItem={removeTodoItem}
             editTodoItem={editTodoItem}
+            toggleTodoItem={toggleTodoItem}
             removeAllItems={removeAllItems}
           />
         ))}
