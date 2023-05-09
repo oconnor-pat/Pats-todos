@@ -66,6 +66,11 @@ const StyledListItem = Styled.li`
 const TodoItem = ({ index, task, removeTodoItem, editTodoItem }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [updatedTask, setUpdatedTask] = useState(task);
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem('tasks');
+    return savedTasks ? JSON.parse(savedTasks) : [];
+  });
+  
 
   const handleEdit = () => {
     setIsEditing(true);
@@ -85,6 +90,19 @@ const TodoItem = ({ index, task, removeTodoItem, editTodoItem }) => {
     setUpdatedTask(e.target.value);
   };
 
+  // handle checkbox click
+  const handleCheckboxClick = (taskId) => {
+    const updatedTasks = tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+    localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+  };
+  
+
   return (
     <div>
       {isEditing ? (
@@ -98,7 +116,7 @@ const TodoItem = ({ index, task, removeTodoItem, editTodoItem }) => {
       <StyledListItem>{task}</StyledListItem>
       <StyledRemoveButton onClick={() => removeTodoItem(index)}>Remove</StyledRemoveButton>
       <StyledEditButton onClick={handleEdit}>Edit</StyledEditButton>
-      <StyledCheckbox type="checkbox" value="" id={`checkbox-${index}`} />
+      <StyledCheckbox type="checkbox" value="" id={`checkbox-${index}`} onClick={handleCheckboxClick} />
         </>
       )}
     </div>
