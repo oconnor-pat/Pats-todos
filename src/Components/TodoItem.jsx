@@ -1,6 +1,6 @@
 import { useState } from "react";
 import PropTypes from "prop-types";
-import Styled from "styled-components";
+import Styled, { css } from "styled-components";
 
 const StyledRemoveButton = Styled.button`
   background-color: #d4af37;
@@ -14,7 +14,8 @@ const StyledRemoveButton = Styled.button`
 `;
 
 const StyledEditButton = Styled.button`
-  color: white;
+  color: ${(props) => props.theme.text};
+  background-color: ${(props) => props.theme.primary};
   border: none;
   border-radius: 5px;
   padding: 5px;
@@ -52,7 +53,12 @@ const StyledCancelButton = Styled.button`
 
 const StyledListItem = Styled.li`
   font-size: 18px;
-  color: #fff;
+  color: ${(props) => props.theme.text};
+  ${(props) =>
+    props.theme.mode === 'light' &&
+    css`
+      color: #333;
+    `}
   padding: 10px;
   border-bottom: 1px solid #ccc;
 `;

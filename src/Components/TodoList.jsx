@@ -6,7 +6,7 @@ import Styled from "styled-components";
 const StyledTitle = Styled.h1`
 font-size: 75px;
 font-weight: bold;
-color: #fff;
+color: ${(props) => props.theme.text};
 margin-bottom: 20px;
 `;
 
@@ -31,8 +31,29 @@ cursor: pointer;
 
 const TODO_STORAGE_KEY = "todos";
 
+// function to check if user has dark mode enabled
+const isDarkMode = () => {
+  return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+}
+  
+  const defaultTheme = isDarkMode() ? 'dark' : 'light';
+
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
+  const [theme, setTheme] = useState(defaultTheme);
+
+  useEffect(() => {
+    // Set the theme in local storage
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  // Load the theme from local storage
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme');
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }
+  }, []);
 
   // useEffect(() => {
   //   fetch("http://localhost:3001/todos")
