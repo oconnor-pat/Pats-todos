@@ -3,6 +3,7 @@ import TodoForm from "./TodoForm";
 import TodoItem from "./TodoItem";
 import Styled from "styled-components";
 
+// Styles
 const StyledTitle = Styled.h1`
 font-size: 75px;
 font-weight: bold;

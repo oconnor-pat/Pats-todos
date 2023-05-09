@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Styled, { css } from "styled-components";
 
+// Styles
 const StyledRemoveButton = Styled.button`
   background-color: #d4af37;
   color: #333;

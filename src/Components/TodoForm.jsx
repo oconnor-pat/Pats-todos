@@ -2,6 +2,7 @@ import { useState } from "react";
 import PropTypes from "prop-types";
 import Styled from "styled-components";
 
+// Styles
 const StyledFormContainer = Styled.div`
   display: flex;
   flex-direction: row;
